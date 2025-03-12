@@ -61,7 +61,7 @@ int main() {
   sleep(5);
 
   // Stop spinner and print success or error
-  spinner.success("Operation completed successfully.");
+  spinner.error(get_colored_text("red", "GOD damn it you're a moron.!!!"));
   // spinner.error("Something went wrong.");
 
   // Wait for spinner thread to terminate
