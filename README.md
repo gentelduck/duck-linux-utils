@@ -6,8 +6,8 @@
 
 Each tool is organized into its own directory, with a dedicated README providing detailed usage instructions. Below are the included utilities:  
 
-- **[duck-wc](./duck-wc/README.md)** – A custom word count utility similar to `wc`, with additional features.  
-- **[duck-spinner](./duck-spinner/README.md)** – A terminal-based spinner animation tool for command-line applications.  
+- **[duck-wc](./@duck-wc/README.md)** – A custom word count utility similar to `wc`, with additional features.  
+- **[duck-spinner](./@duck-spinner/README.md)** – A terminal-based spinner animation tool for command-line applications.  
 
 ## 🚀 Installation  
 
