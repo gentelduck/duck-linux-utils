@@ -31,6 +31,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 # Run the program
+# ./$(TARGET) -w -c -l -t ../index.ts ../max.ts
 run: all
 	#NOTE: you have to create these files if you want to test this.
-	./$(TARGET) -r -v ../index.ts ../max.ts
+	echo "duckui" | ./$(TARGET) -c -w

@@ -1,3 +1,4 @@
+#include "../get_flags/index.h"
 #include "../get_options/index.h"
 
 #ifndef GET_COUNT_H
@@ -10,6 +11,10 @@ typedef struct {
   int tab_count;
 } Counts;
 
-Counts get_counts(Options *options);
+void get_counts_file(Options *options, Flags *flags, int in_word, char ch,
+                     Counts *counts);
 
+void get_count_pipe(Flags *flags, int in_word, char ch, Counts *counts);
+Counts get_counts(Options *options, Flags *flags);
+void count(Counts *counts, char ch, Flags *flags, int in_word);
 #endif // GET_COUNT_H
