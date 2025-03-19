@@ -34,4 +34,4 @@ clean:
 # echo "duckui" | ./$(TARGET) -a
 run: all
 	#NOTE: you have to create these files if you want to test this.
-	./$(TARGET) --help ../index.ts ../max.ts
+	./$(TARGET) -w -c ../index.ts ../max.ts

@@ -3,10 +3,10 @@
 
 void show_help() {
   printf("\n");
-  printf("============================================\n");
+  printf("================================================\n");
   printf("  @gentelduck/wc - Word Count Utility\n");
   printf("  Author: wildduck | Organization: gentelduck\n");
-  printf("============================================\n\n");
+  printf("================================================\n\n");
 
   printf("Usage:\n");
   printf("  wc [OPTION] [FILE]\n\n");

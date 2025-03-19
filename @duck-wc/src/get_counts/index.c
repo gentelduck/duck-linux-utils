@@ -12,25 +12,32 @@ typedef struct {
   int tab_count;
 } Counts;
 
-void print_count(Options *options, Counts *counts, Flags *flags) {
+void print_count(Options *options, Counts *counts, Flags *_flags,
+                 Flags *flags) {
 
   for (int i = 0; i < options->flags_count; i++) {
     char *flag = options->flags[i];
 
-    if (flags->w) {
+    if (!_flags->w && flags->w) {
       printf("%6d", counts->word_count);
-    } else if (flags->c) {
+      _flags->w = 1;
+    } else if (!_flags->c && flags->c) {
       printf("%6d", counts->char_count);
-    } else if (flags->l) {
+      _flags->c = 1;
+    } else if (!_flags->l && flags->l) {
       printf("%6d", counts->line_count);
-    } else if (flags->t) {
+      _flags->l = 1;
+    } else if (!_flags->t && flags->t) {
       printf("%6d", counts->tab_count);
-    } else if (flags->b) {
+      _flags->t = 1;
+    } else if (!_flags->b && flags->b) {
       printf("%6d", counts->char_count / 2);
-    } else if (flags->a) {
+      _flags->b = 1;
+    } else if (!_flags->a && flags->a) {
       // If "-a" is present, print all counts in order
       printf("%6d %6d %6d %6d", counts->word_count, counts->char_count,
              counts->line_count, counts->tab_count);
+      _flags->a = 1;
       break; // "-a" includes all counts, so we stop further checks
     }
   }
@@ -104,6 +111,7 @@ void get_count_pipe(Flags *flags, int *in_word, char ch, Counts *counts) {
 
 Counts get_counts(Options *options, Flags *flags) {
   Counts counts = {0, 0, 0, 0};
+  Flags _flags = {0, 0, 0, 0, 0, 0, 0, 0};
 
   int in_word = 0;
   char ch = '\0';
@@ -115,7 +123,7 @@ Counts get_counts(Options *options, Flags *flags) {
     get_count_pipe(flags, &in_word, ch, &counts);
   }
 
-  print_count(options, &counts, flags);
+  print_count(options, &counts, &_flags, flags);
 
   return counts;
 }
