@@ -12,24 +12,50 @@ typedef struct {
   int tab_count;
 } Counts;
 
+void print_count(Options *options, Counts *counts, Flags *flags) {
+
+  for (int i = 0; i < options->flags_count; i++) {
+    char *flag = options->flags[i];
+
+    if (flags->w) {
+      printf("%6d", counts->word_count);
+    } else if (flags->c) {
+      printf("%6d", counts->char_count);
+    } else if (flags->l) {
+      printf("%6d", counts->line_count);
+    } else if (flags->t) {
+      printf("%6d", counts->tab_count);
+    } else if (flags->b) {
+      printf("%6d", counts->char_count / 2);
+    } else if (flags->a) {
+      // If "-a" is present, print all counts in order
+      printf("%6d %6d %6d %6d", counts->word_count, counts->char_count,
+             counts->line_count, counts->tab_count);
+      break; // "-a" includes all counts, so we stop further checks
+    }
+  }
+
+  printf("\n");
+}
+
 void count(Counts *counts, char ch, Flags *flags, int *in_word) {
   // count chars
-  if (flags->c) {
+  if (flags->c || flags->a || flags->b) {
     counts->char_count++;
   }
 
   // count tabs
-  if (ch == '\t' && flags->t) {
+  if (ch == '\t' && (flags->t || flags->a)) {
     counts->tab_count++;
   }
 
   // count lines
-  if (ch == '\n' && flags->l) {
+  if (ch == '\n' && (flags->l || flags->a)) {
     counts->line_count++;
   }
 
   // count words
-  if (isspace(ch) && flags->w) {
+  if (isspace(ch) && (flags->w || flags->a)) {
     if (*in_word) { // If we were inside a word
       counts->word_count++;
       *in_word = 0; // Mark that we've exited a word
@@ -89,18 +115,7 @@ Counts get_counts(Options *options, Flags *flags) {
     get_count_pipe(flags, &in_word, ch, &counts);
   }
 
-  if (flags->c) {
-    printf("Total chars count: %d\n", counts.char_count);
-  }
-  if (flags->w) {
-    printf("Total words count: %d\n", counts.word_count);
-  }
-  if (flags->l) {
-    printf("Total liens count: %d\n", counts.line_count);
-  }
-  if (flags->t) {
-    printf("Total tabs count: %d\n", counts.tab_count);
-  }
+  print_count(options, &counts, flags);
 
   return counts;
 }

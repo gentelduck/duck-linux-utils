@@ -10,6 +10,9 @@ typedef struct {
   int l;
   int t;
   int s;
+  int a;
+  int b;
+  int h;
 } Flags;
 
 // Function to check if a flag exists

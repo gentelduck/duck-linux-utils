@@ -1,11 +1,17 @@
 #include "get_counts/index.h"
 #include "get_flags/index.h"
 #include "get_options/index.h"
+#include "show_help/index.h"
 
 int main(int argc, char **argv) {
 
   Options options = get_options(argc, argv);
   Flags flags = has_flags(&options);
+
+  if (flags.h) {
+    show_help();
+  }
+
   Counts counts = get_counts(&options, &flags);
 
   return 0;
